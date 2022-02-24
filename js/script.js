@@ -1,48 +1,52 @@
-/*eslint-env browser*/
+// GLOBAL VARIABLES
+let customerType
+let invoiceTotal
+let discountPercent
+let discountAmount
+let newInvoiceTotal
 
-//GLOBAL VARIABLES
-var customerType;
-var invoiceTotal;
-var discountPercent;
-var discountAmount;
-var newInvoiceTotal;
+// DISPLAY MESSAGE TO USER
+document.write('<h3>Welcome to the Invoice Application</h3>')
 
-//DISPLAY MESSAGE
-window.document.write("<h3>Welcome to the Invoice Application</h3>");
+// ASK USER FOR THEIR CUSTOMER TYPE AND GET THE INITIAL INVOICE TOTAL
+customerType = prompt('Enter your customer type (r/w)')
+invoiceTotal = parseFloat(prompt('Enter invoice total'))
 
-//ASK USER FOR CUSTOMER TYPE AND INVOICE TOTAL
-customerType = window.prompt("Enter customer type (r/w)");
-invoiceTotal = parseFloat(window.prompt("Enter invoice total"));
-
-//CHECK IF RETAIL OR WHOLESALE CUSTOMER
-if (customerType === "r") {
-    //CHECK INVOICE TOTAL AND SET DISCOUNT PERCENT
-    if (invoiceTotal > 0 && invoiceTotal < 100) {
-        discountPercent = 0;
-    } else if (invoiceTotal >= 100 && invoiceTotal < 250) {
-        discountPercent = 0.1;
+// CHECK IF THE USER IS RETAIL OR WHOLESALE CUSTOMER
+if (customerType === 'r') {
+    // CHECK INVOICE TOTAL AND SET DISCOUNT PERCENT
+    if (invoiceTotal >= 500) {
+        discountPercent = 0.25
     } else if (invoiceTotal >= 250 && invoiceTotal < 500) {
-        discountPercent = 0.2;
+        discountPercent = 0.10
     } else {
-        discountPercent = 0.25;
+        discountPercent = 0
     }
-} else if (customerType === "w") {
-    //CHECK INVOICE TOTAL AND SET DISCOUNT PERCENT
-    if (invoiceTotal > 0 && invoiceTotal < 500) {
-        discountPercent = 0.4;
+} else if (customerType === 'w') {
+    // CHECK INVOICE TOTAL AND SET DISCOUNT PERCENT
+    if (invoiceTotal >= 1000) {
+        discountPercent = 0.35
+    } else if (invoiceTotal >= 500 && invoiceTotal < 1000) {
+        discountPercent = 0.30
     } else {
-        discountPercent = 0.5;
+        discountPercent = 0.10
     }
 } else {
-    discountPercent = 0;
+    discountPercent = 0
 }
 
-//PERFORM CALCULATIONS
-discountAmount = invoiceTotal * discountPercent;
-newInvoiceTotal = invoiceTotal - discountAmount;
+// PERFORM CALCULATIONS
+discountAmount = invoiceTotal * discountPercent
+newInvoiceTotal = invoiceTotal - discountAmount
 
-//DISPLAY RESULTS
-window.document.write("Invoice total: $" + invoiceTotal + "<br>");
-window.document.write("Discount percent: " + discountPercent * 100 + "%<br>");
-window.document.write("Discount amount: $" + discountAmount + "<br>");
-window.document.write("New invoice total: $" + newInvoiceTotal);
+// DISPLAY RESULTS
+if (customerType == 'r') {
+    document.write('Retail Customer<br>')
+} else {
+    document.write('Wholesale Customer<br>')
+}
+document.write(`Invoice total: $${invoiceTotal}<br>`)
+// document.write('Invoice total: $' + invoiceTotal + '<br>')
+document.write(`Discount percent: ${discountPercent * 100}%<br>`)
+document.write(`Discount amount: $${discountAmount.toFixed(2)}<br>`)
+document.write(`Grand total: $${newInvoiceTotal.toFixed(2)}`)
